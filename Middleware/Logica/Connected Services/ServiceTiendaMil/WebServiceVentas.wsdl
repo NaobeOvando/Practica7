@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ListarProductos">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListarProductosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListarProductosResult" type="tns:ArrayOfProducto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProducto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Producto" nillable="true" type="tns:Producto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Producto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="idProducto" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="precio_unitario" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="iva" type="s:unsignedByte" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuscarXId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuscarXIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuscarXIdResult" type="tns:Producto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ListarProductosSoapIn">
+    <wsdl:part name="parameters" element="tns:ListarProductos" />
+  </wsdl:message>
+  <wsdl:message name="ListarProductosSoapOut">
+    <wsdl:part name="parameters" element="tns:ListarProductosResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuscarXIdSoapIn">
+    <wsdl:part name="parameters" element="tns:BuscarXId" />
+  </wsdl:message>
+  <wsdl:message name="BuscarXIdSoapOut">
+    <wsdl:part name="parameters" element="tns:BuscarXIdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceVentasSoap">
+    <wsdl:operation name="ListarProductos">
+      <wsdl:input message="tns:ListarProductosSoapIn" />
+      <wsdl:output message="tns:ListarProductosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarXId">
+      <wsdl:input message="tns:BuscarXIdSoapIn" />
+      <wsdl:output message="tns:BuscarXIdSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceVentasSoap" type="tns:WebServiceVentasSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarProductos">
+      <soap:operation soapAction="http://tempuri.org/ListarProductos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarXId">
+      <soap:operation soapAction="http://tempuri.org/BuscarXId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceVentasSoap12" type="tns:WebServiceVentasSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListarProductos">
+      <soap12:operation soapAction="http://tempuri.org/ListarProductos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarXId">
+      <soap12:operation soapAction="http://tempuri.org/BuscarXId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebServiceVentas">
+    <wsdl:port name="WebServiceVentasSoap" binding="tns:WebServiceVentasSoap">
+      <soap:address location="http://localhost:50042/WebServiceVentas.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceVentasSoap12" binding="tns:WebServiceVentasSoap12">
+      <soap12:address location="http://localhost:50042/WebServiceVentas.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
